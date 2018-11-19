@@ -91,15 +91,7 @@ public:
 
 			while (aux != NULL) {
 
-				std::cout
-
-				<< TAG_ID << aux->id << " "
-
-				<< TAG_NAME << aux->nombre << " "
-
-				<< TAG_LASTNAME << aux->apellido << " "
-
-				<< TAG_TYPE_CLIENT_SHORT << tiposCliente[aux->type] << "\n";
+				insertarEnArbol(raizClientes, aux->id, aux->nombre, aux->apellido, aux->type);
 
 				aux = aux->siguiente;
 
@@ -109,6 +101,20 @@ public:
 			std::cout << "\n";
 
 		}
+
+		std::cout
+
+			<< "|" << TAG_ID << std::setw(toreturnNSpaces(TAG_ID)+1)
+
+			<< "|" << TAG_NAME  << std::setw(toreturnNSpaces(TAG_NAME)+1)
+
+			<< "|" << TAG_LASTNAME  << std::setw(toreturnNSpaces(TAG_LASTNAME)+1)
+
+			<< "|" << TAG_TYPE_CLIENT_SHORT << std::setw(toreturnNSpaces(TAG_TYPE_CLIENT_SHORT)) << "|\n";
+
+		pintarArbol (raizClientes);
+
+		std::cout << "\n";
 
 	}
 
@@ -260,6 +266,123 @@ public:
 	}
 
 private:
+
+	int toreturnNSpaces (std::string string){
+
+		return (20-string.length());
+	}
+
+	void pintarArbol (arbolClientes * nodo){
+
+		if (nodo != NULL){
+
+			if (nodo->izquierda != NULL){
+
+				pintarArbol(nodo->izquierda);
+
+			}
+
+			std::cout
+
+				<< "|" << nodo->id << std::setw(toreturnNSpaces(std::to_string(nodo->id))) << " "
+
+				<< "|" << nodo->nombre << std::setw( toreturnNSpaces(nodo->nombre) ) << " "
+
+				<< "|" << nodo->apellido << std::setw(  toreturnNSpaces(nodo->apellido) ) << " "
+
+				<< "|" << tiposCliente[nodo->type] << std::setw( toreturnNSpaces(tiposCliente[nodo->type]) ) << "|\n";
+
+
+			if (nodo->derecha != NULL){
+
+				pintarArbol(nodo->derecha);
+			}
+
+		}
+
+	}
+
+	arbolClientes * crearNodo() {
+
+		arbolClientes * temp = new arbolClientes();
+
+		return temp;
+	}
+
+	void insertarEnArbol(arbolClientes * nodo, 	int id, std::string nombre, std::string apellido, int type, std::string orderBy = "apellido") {
+
+			if (nodo == NULL){
+
+				arbolClientes * nuevo = this->crearNodo();
+
+				nuevo->id = id;
+
+				nuevo->nombre = nombre;
+
+				nuevo->apellido = apellido;
+
+				nuevo->type = type;
+
+				nuevo->padre = NULL;
+
+				raizClientes = nuevo;
+
+			}else{
+
+				if (id < nodo->id){
+
+					if (nodo->izquierda == NULL){
+
+						arbolClientes * nuevo = this->crearNodo();
+
+						nuevo->id = id;
+
+						nuevo->nombre = nombre;
+
+						nuevo->apellido = apellido;
+
+						nuevo->type = type;
+
+						nuevo->padre = nodo;
+
+						nodo->izquierda = nuevo;
+
+					}else{
+
+						insertarEnArbol(nodo->izquierda, id, nombre, apellido, type, orderBy);
+
+					}
+
+				}else {
+
+					if (nodo->derecha == NULL){
+
+						arbolClientes * nuevo = this->crearNodo();
+
+						nuevo->id = id;
+
+						nuevo->nombre = nombre;
+
+						nuevo->apellido = apellido;
+
+						nuevo->type = type;
+
+						nuevo->padre = nodo;
+
+						nodo->derecha = nuevo;
+
+					}else{
+
+						insertarEnArbol(nodo->derecha, id, nombre, apellido, type, orderBy);
+					}
+
+				}
+
+
+
+			}
+
+		}
 
 	std::vector<std::string> tiposCliente;
 

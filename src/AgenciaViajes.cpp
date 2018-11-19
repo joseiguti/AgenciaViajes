@@ -14,6 +14,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
 
 #include "Library/Strings.h"
 #include "Library/Struct.h"

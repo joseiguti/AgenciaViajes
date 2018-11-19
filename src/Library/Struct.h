@@ -58,6 +58,22 @@ struct clientes {
 	clientes * siguiente;
 };
 
+struct arbolClientes {
+
+	int id;
+
+	std::string nombre;
+
+	std::string apellido;
+
+	int type;
+
+	struct arbolClientes * izquierda, * derecha, * padre;
+
+};
+
+struct arbolClientes * raizClientes;
+
 struct clientes * primeroC;
 
 struct hotel * primeroH;
