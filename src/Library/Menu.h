@@ -361,7 +361,7 @@ protected:
 
 		std::cout << "::: Clients Menu :::\n";
 
-		std::cout << "1- Listar.\n";
+		std::cout << "1- Listar. (Arbol ordenado)\n";
 
 		std::cout << "2- Agregar.\n";
 
@@ -369,7 +369,9 @@ protected:
 
 		std::cout << "4- Consultar por ID.\n";
 
-		std::cout << "5- Back to main menu.\n";
+		std::cout << "5- Consultar por ID. (Arbol)\n";
+
+		std::cout << "6- Back to main menu.\n";
 
 		return 0;
 
@@ -403,11 +405,14 @@ protected:
 				clientes.consultClientById();
 				break;
 			case 5:
+				clientes.consultClientByIdTree();
+				break;
+			case 6:
 				std::cout << "Backing to the main menu...\n";
 				break;
 			}
 
-		} while (option != 5);
+		} while (option != 6);
 
 	}
 

@@ -69,7 +69,42 @@ public:
 
 	}
 
+	void consultClientByIdTree (){
+
+		raizClientes = NULL;
+
+		Utility utility;
+
+		struct clientes * aux = primeroC;
+
+		while (aux != NULL) {
+
+			insertarEnArbol(raizClientes, aux->id, aux->nombre, aux->apellido, aux->type);
+
+			aux = aux->siguiente;
+
+		}
+
+		int id = utility.putNumber("ID:", "Error, no es ID valido", 1, 1000000000);
+
+		arbolClientes * buscar = this->buscarEnArbol(raizClientes, id);
+
+		if (buscar != NULL){
+
+			std::cout << "El cliente con el ID " << buscar->id << " existe en nuestra Bd con el nombre de \"" <<  buscar->nombre << " " << buscar->apellido << "\"\n\n";
+
+
+		}else{
+
+			std::cout << "No existe el cliente.\n";
+
+		}
+
+	}
+
 	void printList() {
+
+		raizClientes = NULL;
 
 		tiposCliente.push_back("_blank_");
 
@@ -266,6 +301,31 @@ public:
 	}
 
 private:
+
+	arbolClientes * buscarEnArbol (arbolClientes * nodo, int valor, bool encontro = false){
+
+		if (nodo->id == valor){
+
+			return nodo;
+
+		}else{
+
+			if (nodo->izquierda != NULL){
+
+				this->buscarEnArbol(nodo->izquierda, valor, encontro);
+
+			}
+
+			if (nodo->derecha != NULL){
+
+				this->buscarEnArbol(nodo->derecha, valor, encontro);
+
+			}
+
+			return NULL;
+		}
+
+	}
 
 	int toreturnNSpaces (std::string string){
 
